@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script src="/assets/themes.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/settings.css" />
+  <link rel="stylesheet" href="/css/themes.css" />
+  <title>Settings</title>
+  <link rel="icon" href="icons/logo.png" type="image/x-icon" />
+  <script src="/assets/settings.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCTSG4T1B6"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-NCTSG4T1B6');</script>
+</head>
+
+<body onload="showContent('general');parent.updateOmni();parent.setTab();">
+  <div id="sidebar">
+    <div class="menu-item" onclick="showContent('general')">
+      <i class="fas fa-cog menu-icon"></i>
+      <span class="menu-label">General</span>
+    </div>
+    <div class="menu-item" onclick="showContent('themes')">
+      <i class="fa-solid fa-paintbrush menu-icon"></i>
+      <span class="menu-label">Themes</span>
+    </div>
+    <div class="menu-item" onclick="showContent('search')">
+      <i class="fas fa-search menu-icon"></i>
+      <span class="menu-label">Search</span>
+    </div>
+    <div class="menu-item" onclick="showContent('developer')">
+      <i class="fas fa-code menu-icon"></i>
+      <span class="menu-label">Developer</span>
+    </div>
+  </div>
+  <div id="content">
+    <div id="general-content">
+      <div class="content-title">General</div>
+      <!-- Tabs Cloak -->
+      <div class="settings-section">
+        <h2 class="section-title">Tab Cloak</h2>
+        <div class="section-content">
+          <div class="buttons">
+            <input id="title" class="input-field" placeholder="Title" onkeyup="setTitle(this.value)" />
+            <input id="icon" class="input-field" placeholder="Favicon" onkeyup="setFavicon(this.value.trim())" />
+          </div>
+          <p class="section-content">Ready Made Cloaks</p>
+          <div class="buttons">
+            <select name="Readymade Cloaks" id="premadecloaks" class="input-field" title="Cloaks">
+              <option value="search">Google Search</option>
+              <option value="drive">Google Drive</option>
+              <option value="youtube">YouTube</option>
+              <option value="gmail">Gmail</option>
+              <option value="calendar">Google Calendar</option>
+              <option value="meets">Google Meet</option>
+              <option value="classroom">Google Classroom</option>
+              <option value="canvas">Canvas</option>
+              <option value="zoom">Zoom</option>
+              <option value="khan">Khan Academy</option>
+            </select>
+            <div class="select-buttons">
+              <button class="icon-button" onclick="setCloak()">
+                <i class="fas fa-cogs"></i> Set
+              </button>
+              <button class="icon-button" onclick="resetTab()">
+                <i class="fas fa-undo-alt"></i> Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br /><br />
+      <!-- About:blank -->
+      <div class="settings-section">
+        <h2 class="section-title">About:Blank</h2>
+        <div class="section-content">
+          <p class="section-text">
+            The button below opens the site as an about:blank, hiding it from
+            your history.
+          </p>
+          <button class="icon-button" onclick="aboutBlank()">
+            <i class="fas fa-rocket"></i> Launch
+          </button>
+        </div>
+      </div>
+      <br /><br />
+      <div class="settings-section">
+        <h2 class="section-title">Auto Blank</h2>
+        <div class="section-content">
+          <p class="section-text">
+            Enable automatic about:blank cloaking. This can help prevent the site from showing up in your search
+            history, and hides the site from some blockers.
+          </p>
+          <div class="switch">
+            <input type="checkbox" class="switch" id="autoBlankSwitch"
+              onclick="setAutoBlank();" />
+            <label for="autoBlankSwitch" class="slider"></label>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+      <!--Toggle auto save/load tabs-->
+      <div class="settings-section">
+        <h2 class="section-title">Auto Save/Load Tabs</h2>
+        <div class="section-content">
+          <p class="section-text">
+            Automatically reload tabs from older sessions, toggle auto saving
+            and loading here. TEMPORARILY DISABLED
+          </p>
+          <div class="switch">
+            <!-- <input type="checkbox" class="switch" id="toggleSwitch" /> -->
+            <label for="toggleSwitch" class="slider" style="cursor:not-allowed;"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Themes -->
+    <div id="themes-content">
+      <div class="content-title">Themes</div>
+      <div class="settings-section"></div>
+      <h2 class="section-title">Themes</h2>
+      <div class="section-content">
+        <p class="section-text">
+          Choose between the following themes. This will change the
+          appearance of the site.
+        </p>
+        <div class="themes-container" id="themes-container">
+          <!-- Theme Buttons Get Loaded here-->
+        </div>
+      </div>
+    </div>
+
+    <div id="search-content">
+      <div class="content-title">Search</div>
+      <!-- Engine -->
+      <div class="settings-section">
+        <h2 class="section-title">Search Engine</h2>
+        <div class="section-content">
+          <p class="section-text">
+            Changing this will change the search engine used when searching.
+          </p>
+          <select id="searchEngineDropdown" class="input-field" onchange="updateCookies()">
+            <option value="google" data-url="https://www.google.com/search?q=%s">
+              Google
+            </option>
+            <option value="bing" data-url="https://www.bing.com/search?q=%s">
+              Bing
+            </option>
+            <option value="yahoo" data-url="https://search.yahoo.com/search?p=%s">
+              Yahoo
+            </option>
+            <option value="duckduckgo" data-url="https://duckduckgo.com/?q=%s">
+              DuckDuckGo
+            </option>
+            <option value="brave" data-url="https://search.brave.com/search?q=%s">
+              Brave
+            </option>
+            <option value="yandex" data-url="https://yandex.com/search/?text=%s">
+              Yandex
+            </option>
+          </select>
+        </div>
+      </div>
+      <br /><br />
+      <!-- Proxy -->
+      <!-- <div class="settings-section">
+        <h2 class="section-title">Proxy</h2>
+        <div class="section-content">
+          <p class="section-text">
+            This is the proxy that is used when searching.
+          </p>  
+          <select id="proxyDropdown" class="input-field">
+            <option value="ultraviolet">Ultraviolet</option>
+            <option value="dynamic">Dynamic</option>
+          </select>
+        </div>
+      </div> -->
+    </div>
+
+
+
+    <div id="search-content">
+      <div class="content-title">Search</div>
+      <!-- Engine -->
+      <div class="settings-section">
+        <h2 class="section-title">Search Engine</h2>
+        <div class="section-content">
+          <p class="section-text">
+            Changing this will change the search engine used when searching.
+          </p>
+          <select id="searchEngineDropdown" class="input-field" onchange="updateCookies()">
+            <option value="google" data-url="https://www.google.com/search?q=%s">
+              Google
+            </option>
+            <option value="bing" data-url="https://www.bing.com/search?q=%s">
+              Bing
+            </option>
+            <option value="yahoo" data-url="https://search.yahoo.com/search?p=%s">
+              Yahoo
+            </option>
+            <option value="duckduckgo" data-url="https://duckduckgo.com/?q=%s">
+              DuckDuckGo
+            </option>
+            <option value="brave" data-url="https://search.brave.com/search?q=%s">
+              Brave
+            </option>
+            <option value="yandex" data-url="https://yandex.com/search/?text=%s">
+              Yandex
+            </option>
+          </select>
+        </div>
+      </div>
+      <br /><br />
+      <!-- Proxy -->
+      <!-- <div class="settings-section">
+        <h2 class="section-title">Proxy</h2>
+        <div class="section-content">
+          <p class="section-text">
+            This is the proxy that is used when searching.
+          </p>
+          <select id="proxyDropdown" class="input-field">
+            <option value="ultraviolet">Ultraviolet</option>
+            <option value="dynamic">Dynamic</option>
+          </select>
+        </div>
+      </div> -->
+    </div>
+    <div id="search-content">
+      <div class="content-title">Search</div>
+      <!-- Engine -->
+      <div class="settings-section">
+        <h2 class="section-title">Search Engine</h2>
+        <div class="section-content">
+          <p class="section-text">
+            Changing this will change the search engine used when searching.
+          </p>
+          <select id="searchEngineDropdown" class="input-field" onchange="updateCookies()">
+            <option value="google" data-url="https://www.google.com/search?q=%s">
+              Google
+            </option>
+            <option value="bing" data-url="https://www.bing.com/search?q=%s">
+              Bing
+            </option>
+            <option value="yahoo" data-url="https://search.yahoo.com/search?p=%s">
+              Yahoo
+            </option>
+            <option value="duckduckgo" data-url="https://duckduckgo.com/?q=%s">
+              DuckDuckGo
+            </option>
+            <option value="brave" data-url="https://search.brave.com/search?q=%s">
+              Brave
+            </option>
+            <option value="yandex" data-url="https://yandex.com/search/?text=%s">
+              Yandex
+            </option>
+          </select>
+        </div>
+      </div>
+      <br /><br />
+      <!-- Proxy -->
+      <!-- <div class="settings-section">
+        <h2 class="section-title">Proxy</h2>
+        <div class="section-content">
+          <p class="section-text">
+            This is the proxy that is used when searching.
+          </p>
+          <select id="proxyDropdown" class="input-field">
+            <option value="ultraviolet">Ultraviolet</option>
+            <option value="dynamic">Dynamic</option>
+          </select>
+        </div>
+      </div> -->
+    </div>
+    <div id="developer-content">
+      <div class="content-title">Developer Tools</div>
+      <div class="settings-section">
+        <h2 class="section-title">Change Transport</h2>
+        <div class="section-content">
+          <p class="section-text">Change the transport and Wisp/Bare Server URL that's used when searching on Shadow.
+          </p>
+          <select id="wispSelection" onchange="wispURLOption()" class="input-field">
+            <option value="default">Default Server</option>
+            <option value="custom">Custom Server</option>
+          </select>
+
+          <select id="transportSelection" onchange="changeTransport()" class="input-field">
+            <option value="/epoxy/index.mjs">Epoxy</option>
+            <option value="/libcurl/index.mjs">Libcurl</option>
+            <option value="/baremod/index.mjs">Baremod</option>
+          </select>
+          <br><br>
+
+          <input value="phantom.lol" style="width:90%; display:none;" class="input-field" id="wispURL" /> <br>
+
+          <div class="flex-div" style="display:none;" id="wispBtn">
+            <button class="icon-button" onclick="setWispUrl(); ShowNotification('Wisp URL changed.', 'wispnoti')">
+              <i class="fa-solid fa-link"></i> Set Wisp URL
+            </button>
+            <p class="notification" id="wispnoti"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- UA -
+      <div class="settings-section">
+        <h2 class="section-title">Custom User Agent</h2>
+        <div class="section-content">
+          <p class="section-text">Switch between different user agents. Some agents may cause issues.</p>
+          <input placeholder="" style="width:90%;" class="input-field" id="custom-ua" /> <br><br>
+          <button class="icon-button" id="ua"
+            onclick="customUA = document.getElementById('custom-ua').value; changeUA(customUA);">Choose Agent</button>
+        </div> -->
+
+    </div>
+  </div>
+  </div>
+
+  <script>
+    function setAutoBlank() {
+      localStorage.setItem("autoBlank", (!(JSON.parse(localStorage.getItem("autoBlank")) || false)).toString())
+    }
+
+    function aboutBlank() {
+      if (parent !== window) {
+        parent.abtblank();
+      } else {
+        abtblank();
+      }
+    }
+
+    function changeTransport(transport = document.getElementById("transportSelection").value) {
+      localStorage.setItem("transport", transport);
+      setWispUrl();
+      parent.tabs.setTransport();
+    }
+
+    function setWispUrl(url = document.getElementById('wispURL').value) {
+      if (document.getElementById("transportSelection").value != "/baremod/index.mjs") {
+        localStorage.setItem("server", `wss://${url.replace("/wisp", "").replace("/bare", "").replace("https:", "").replace("http:", "").replace("/", "")}/wisp/`);
+      } else {
+        localStorage.setItem("server", `https://${url.replace("/wisp", "").replace("/bare", "").replace("https:", "").replace("http:", "").replace("/", "")}/bare/`);
+      }
+      parent.tabs.setTransport();
+    }
+
+    function showContent(contentId) {
+      const contentSections = document.querySelectorAll("#content > div");
+      contentSections.forEach((section) => {
+        section.style.display = "none";
+      });
+
+      const selectedSection = document.getElementById(contentId + "-content");
+      if (selectedSection) {
+        selectedSection.style.display = "block";
+      }
+    }
+
+    function updateEngine() {
+      var dropdown = document.getElementById("searchEngineDropdown");
+      var selectedOption = dropdown.options[dropdown.selectedIndex];
+      var dataUrl = selectedOption.getAttribute("data-url");
+      localStorage.setItem("searchEngine", dataUrl);
+    }
+
+    var storedSearchEngine = localStorage.getItem("searchEngine");
+    var searchEngineDropdown = document.getElementById(
+      "searchEngineDropdown",
+    );
+
+    searchEngineDropdown.addEventListener("change", updateEngine);
+  </script>
+  <script src="/assets/options.js"></script>
+  <script src="/assets/notifications.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
